@@ -6,8 +6,7 @@ void main()
 {
 	int a[100],n,s;
 	read(a,n,s);
-	int flag = bsearch(a,0,n-1,s);
-	print(flag,s);
+	
 }
 
 void read(int a[],int n, int s)
@@ -16,6 +15,8 @@ void read(int a[],int n, int s)
 	for(int i=0;i<n;i++)
 		scanf("%d",&a[i]);
 	scanf("%d",&s);
+	int flag = bsearch(a,0,n-1,s);
+	print(flag,s);
 }
 int bsearch(int a[],int t, int b, int s)
 {
@@ -37,6 +38,6 @@ void print(int flag, int s)
 	if(flag==-1)
 		printf("Element not present");
 	else 
-		printf("%d Element present at %d ",s,flag);
+		printf("%d Element present at %d ",s,flag+1);
 	
 }
