@@ -29,8 +29,9 @@ void Insertrear(int item)
 			front = rear = 0;
 		else
 			rear = (rear + 1) % size;
+		Q[rear] = item;
 	}
-	Q[rear] = item;
+	
 }
 
 int Deletefront()
