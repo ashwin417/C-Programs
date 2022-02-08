@@ -32,7 +32,7 @@ char pop()
 	if(isempty())
 		printf("Stack is empty !!!");
 	else
-		return stack[top--]; 
+		return stack[--top]; 
 }
 
 int inputpriority(char c)
