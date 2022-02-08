@@ -13,7 +13,7 @@ int isempty()
 
 int isfull()
 {
-	if((front == rear + 1) || ((front == 1) && (rear == size - 1)))
+	if((front == rear + 1) || ((front == 0) && (rear == size - 1)))
 		return 1;
 	else
 		return 0;
@@ -54,8 +54,9 @@ void Display()
 {
 	int i;
 	printf("\n Queue :");
-	for (i = front; i != rear+1; i = (i + 1) % size) {
+	for (i = front; i != rear; i = (i + 1) % size) {
 		printf("%d ", Q[i]);
+	printf("%d ", Q[i]);
 	}
 }
 
