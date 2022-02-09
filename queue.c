@@ -47,6 +47,9 @@ int DeleteQ()
 
 void Display()
 {
+	if(isempty()){
+		printf("Queue is empty");
+	}
 	int i;
 	printf("\n Queue :");
 	for (i = front; i != rear+1; i = (i + 1) % size) {
