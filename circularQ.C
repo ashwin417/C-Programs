@@ -55,11 +55,14 @@ void Display()
 	if(isempty()){
 		printf("Queue is empty");
 	}
+	else
+	{
 	int i;
 	printf("\n Queue :");
 	for (i = front; i != rear; i = (i + 1) % size) {
 		printf("%d ", Q[i]);
 	printf("%d ", Q[i]);
+	}
 	}
 }
 
