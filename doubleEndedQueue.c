@@ -61,7 +61,7 @@ void Display()
 	for (i = front; i != rear; i = (i + 1) % size) {
 		printf("%d ", Q[i]);
 	}
-	printf("%d ", Q[i]);
+	printf("%d ", Q[rear]);
 	}
 }
 
