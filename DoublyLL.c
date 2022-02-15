@@ -1,3 +1,5 @@
+//deletion from end is only working other ain't!!!
+
 #include<stdio.h>
 #include<malloc.h>
 struct NODE
@@ -83,6 +85,39 @@ void traverseleft()
 	
 }
 
+void Delete(int item)
+{
+	node *curr = head;
+	while(curr->info != item)
+		curr = curr->next;
+	if(curr->next = NULL)
+		printf("No element");
+	else 
+	{
+		if(curr == tail)
+		{
+			tail = tail->prev;
+			if(tail!=NULL)
+				tail->next = NULL;
+			free(curr);
+		}
+		else if(curr == head)
+		{
+			head = head->next;
+			if(head!=NULL)
+				head->prev = NULL;
+			free(curr);
+		}
+		else
+		{
+			node *temp = curr -> next;  
+			curr -> next = temp -> next;  
+			temp -> next -> prev = curr; 
+			free(temp);
+		}
+		
+	}
+}
 void main()
 {
 	int ch,item,item1;
@@ -101,6 +136,10 @@ void main()
 			break;
 		case 3: traverseright(); break;
 		case 4: traverseleft(); break;
+		case 5:
+			scanf("%d",&item);
+			Delete(item);
+			break;
 	}
 	}
 	while(1);
