@@ -71,7 +71,7 @@ void delete(int val)
      printf("Item Not Found\n");
   else
      {
-       if(curr==head)  /
+       if(curr==head)  
          head=curr->link;
        else
          prev->link=curr->link;
