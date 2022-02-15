@@ -53,7 +53,7 @@ void InsertAfter(int item, int item1)
 		curr->next = p;
 }
 
-void display()
+void traverseright()
 {
 	node *curr = head;
 	while(curr!=NULL)
@@ -66,6 +66,21 @@ void display()
 		}
 	}
 		
+}
+
+void traverseleft()
+{
+	node *curr = tail;
+	while(curr!=NULL)
+	{
+		printf("%d",curr->info);
+		curr=curr->prev;
+		if(curr!=NULL)
+		{
+			printf("<-");
+		}
+	}
+	
 }
 
 void main()
@@ -84,7 +99,8 @@ void main()
 			scanf("%d",&item1);
 			InsertAfter(item,item1);
 			break;
-		case 3: display(); break;
+		case 3: traverseright(); break;
+		case 4: traverseleft(); break;
 	}
 	}
 	while(1);
