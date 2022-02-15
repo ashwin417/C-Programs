@@ -1,146 +1,143 @@
-//deletion from end is only working other ain't!!!
-
+#include<stdlib.h>
 #include<stdio.h>
-#include<malloc.h>
-struct NODE
+#define size 50
+int Q[size], rear=-1,front=-1;
+
+int isempty()
 {
-	int info;
-	struct NODE *prev;
-	struct NODE *next;
-};
-typedef struct NODE node;
-node *head = NULL;
-node *tail = NULL;
-node *newnode(int val)
-{
-	node *p;
-	p=(node *)malloc(sizeof(node));
-	p->info=val;
-	p->prev=NULL;
-	p->next=NULL;
-	return p;
+	if(front == -1)
+		return 1;
+	else
+		return 0;
 }
 
-void InsertFirst(int item)
+int isfull()
 {
-	node *p = newnode(item);
-	p->info = item;
-	p->prev = NULL;
-	p->next = head;
-	if(head==NULL)
-		head=tail=p;
+	if((front == rear + 1) || ((front == 1) && (rear == size - 1)))
+		return 1;
 	else
-		head->prev = p;
-		head = p;
+		return 0;
 }
 
-void InsertAfter(int item, int item1)
+void Insertrear(int item)
 {
-	node *curr = head;
-	node *p;
-	p=newnode(item);
-	while(curr!=NULL && curr->info!=item1)
-		curr = curr->next;
-	if(curr == NULL)
-		printf("Element not present");
+	if(isfull())
+		printf("Queue is Full");
 	else
-		
-		p->info = item;
-		p->prev = curr;
-		p->next = curr->next;
-		if(curr->next == NULL)
-			tail = p;
+	{
+		if(front == -1)
+			front = rear = 0;
 		else
-			curr->next->prev = p;
-		curr->next = p;
-}
-
-void traverseright()
-{
-	node *curr = head;
-	while(curr!=NULL)
-	{
-		printf("%d",curr->info);
-		curr=curr->next;
-		if(curr!=NULL)
-		{
-			printf("->");
-		}
-	}
-		
-}
-
-void traverseleft()
-{
-	node *curr = tail;
-	while(curr!=NULL)
-	{
-		printf("%d",curr->info);
-		curr=curr->prev;
-		if(curr!=NULL)
-		{
-			printf("<-");
-		}
+			rear = (rear + 1) % size;
+		Q[rear] = item;
 	}
 	
 }
 
-void Delete(int item)
+int Deletefront()
 {
-	node *curr = head;
-	while(curr->info != item)
-		curr = curr->next;
-	if(curr->next = NULL)
-		printf("No element");
-	else 
-	{
-		if(curr == tail)
-		{
-			tail = tail->prev;
-			if(tail!=NULL)
-				tail->next = NULL;
-			free(curr);
-		}
-		else if(curr == head)
-		{
-			head = head->next;
-			if(head!=NULL)
-				head->prev = NULL;
-			free(curr);
-		}
+	int index = -1;
+	if(isempty()){
+		printf("Queue is empty");
+	}
+	else{
+		index = front;
+		if(front == rear)
+			front = rear = -1;
 		else
-		{
-			node *temp = curr -> next;  
-			curr -> next = temp -> next;  
-			temp -> next -> prev = curr; 
-			free(temp);
-		}
-		
+			front = (front +1)%size;
+	}
+	return index;
+}
+
+void Display()
+{
+	if(isempty()){
+		printf("Queue is empty");
+	}
+	else{
+	int i;
+	printf("\n Queue :");
+	for (i = front; i != rear; i = (i + 1) % size) 
+	{
+		printf("%d ", Q[i]);
+	}
+	printf("%d ", Q[rear]);
 	}
 }
-void main()
+
+
+void Insertfront(int item)
 {
-	int ch,item,item1;
-	do
-	{
-	scanf("%d",&ch);
-	switch(ch){
-		case 1:
-			scanf("%d",&item);
-			InsertFirst(item);
-			break;
-		case 2:
-			scanf("%d",&item);
-			scanf("%d",&item1);
-			InsertAfter(item,item1);
-			break;
-		case 3: traverseright(); break;
-		case 4: traverseleft(); break;
-		case 5:
-			scanf("%d",&item);
-			Delete(item);
-			break;
-	}
-	}
-	while(1);
+	if(isfull())
+		printf("Queue is full");
+	else
+		if(isempty())
+			front=rear=0;
+		else
+			front = (front+size-1)%size;
+		Q[front]= item;
+}
+
+int Deleterear()
+{
+	int index = -1;
+	if(isempty())
+		printf("Queue is empty");
+	else
+		index = rear;
+	if(front == rear)
+		front = rear = -1;
+	else
+		rear = (rear + size-1)%size;
+	return index;
+	
+}
+
+
+
+int main()
+{
+	int ch, fr;
+	printf("Queue");
+	do{
+		printf("\n1.Insert 2. Delete 3.Display 4.exit");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1: {
+				int item;
+				printf("Item to be entered : ");
+				scanf("%d",&item);
+				printf("Insert it on : 1. Rear 2.Front ? ");
+				scanf("%d",&fr);
+				if(fr == 1)
+					Insertrear(item);
+				else if(fr == 2)
+					Insertfront(item);
+				else
+					printf("wrong option");
+				break;
+			}
+			case 2: {
+				int val;
+				printf("delete it from 1. front 2. rear ? ");
+				scanf("%d",&fr);
+				if(fr == 1)
+					{
+					val = Deletefront();
+					}
+					else if(fr == 2)
+						val= Deleterear();
+					else
+						printf("wrong option");
+				if(val != -1)
+					printf("The deleted item is %d",Q[val]);
+				break;
+			} 
+			case 3: Display(); break;
+			case 4: exit(0);
+		}
+	} while(1);
+	return 0;
 }
