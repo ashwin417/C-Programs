@@ -48,7 +48,7 @@ void InsertBefore(int item, int item1)
 		p->info = item;
 		p->next = curr;
 		p->prev = curr->prev;
-		if(curr->next == NULL)
+		if(curr == NULL)
 			head=p;
 		else
 			curr->prev->next = p;
